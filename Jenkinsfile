@@ -2,6 +2,15 @@ pipeline {
     agent none
     stages {
         
+        stage ('properties'){
+            agent { label 'master' }
+            steps {
+                script {
+                    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10')), [$class: 'ScannerJobProperty', doNotScan: false], gitLabConnection('CERN GitLlab'), [$class: 'CopyArtifactPermissionProperty', projectNames: 'narlibs-log4cplus/narlibs-log4cplus/master'], pipelineTriggers([pollSCM('* * * * *')])])
+                }
+            }
+        }
+        
         stage ('Checkout'){
             parallel {
                 stage('Windows') {
