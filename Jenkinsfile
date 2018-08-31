@@ -69,7 +69,7 @@ pipeline {
         }
         stage ('Build narlibs-log4cplus') {
             steps {
-                build job: 'narlibs-log4cplus', wait: false   
+                build job: 'narlibs-log4cplus/narlibs-log4cplus/master', wait: false   
             }
         }
     }
