@@ -1,3 +1,43 @@
+# log4cplus 2.0.3
+
+  - Fix compilation on systems without `O_CLOEXEC`. This affects, e.g.,
+    Solaris 10. GitHub issue #326. (Patch by Jiangrz).
+
+  - Provide `log4cplus::deinitialize()` to make the API symmetric
+    (`log4cplus::initialize()` already exists) and to allow
+    de-/initialization without `log4cplus::Initializer` instance. GitHub
+    issue #340.
+
+
+# log4cplus 2.0.2
+
+  - Allow setting thread pool size using new function
+    `setThreadPoolSize()`. Allow setting the size from `log4cplus.properties`
+    using `log4cplus.threadPoolSize` property. Lower initial thread pool size
+    by half to `std::thread::hardware_concurrency()` threads. GitHub issue
+    #315.
+
+  - Fix Autotools based build for MinGW. GitHub issue #317.
+
+  - Add `configure` script option `--enable-lto` to allow easier LTO builds.
+
+  - Optimization of `getFormattedTime()`. (Alexey Vishtak)
+
+  - Introduction of `LOG4CPLUS_MACRO_FILE()` used in logging macros to allow
+    users to redefine it and consequently hide source file names from their
+    compiled executables and logging output.
+
+
+# log4cplus 2.0.1
+
+  - Update to Automake 1.16.1.
+
+  - Adjust `spi::LoggerFactory` to allow custom `spi::LoggerImpl`. GitHub
+    issue #309.
+
+  - Fix MacOS X compilation. GitHub issue #312.
+
+
 # log4cplus 2.0
 
   - CMake improvements: Automate export of includes if building as Cmake

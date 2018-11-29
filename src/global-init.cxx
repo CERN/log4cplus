@@ -112,8 +112,7 @@ Initializer::~Initializer ()
         if (InitializerImpl::instance->count == 0)
         {
             destroy = true;
-            shutdownThreadPool();
-            Logger::shutdown ();
+            deinitialize ();
         }
     }
     if (destroy)
@@ -500,6 +499,14 @@ initialize ()
 
 
 void
+deinitialize ()
+{
+    shutdownThreadPool();
+    Logger::shutdown ();
+}
+
+
+void
 threadCleanup ()
 {
     // Here we check that we can get CRT's heap handle because if we do not
@@ -535,6 +542,15 @@ threadCleanup ()
     }
 #endif
     internal::set_ptd (nullptr);
+}
+
+
+void
+setThreadPoolSize (std::size_t pool_size)
+{
+#if ! defined (LOG4CPLUS_SINGLE_THREADED)
+    get_dc ()->thread_pool->set_pool_size (pool_size);
+#endif
 }
 
 
