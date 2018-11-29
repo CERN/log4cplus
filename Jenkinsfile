@@ -6,7 +6,7 @@ pipeline {
             agent { label 'master' }
             steps {
                 script {
-                    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10')), [$class: 'ScannerJobProperty', doNotScan: false], gitLabConnection('CERN GitLlab'), [$class: 'CopyArtifactPermissionProperty', projectNames: 'narlibs-log4cplus/narlibs-log4cplus/master']])
+                    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10')), [$class: 'ScannerJobProperty', doNotScan: false], gitLabConnection('CERN GitLlab'), [$class: 'CopyArtifactPermissionProperty', projectNames: '*']])
                 }
             }
         }
@@ -65,11 +65,6 @@ pipeline {
                         archiveArtifacts artifacts:'include/log4cplus/**/*.*',fingerprint:true 
                     }    
                 }
-            }
-        }
-        stage ('Build narlibs-log4cplus') {
-            steps {
-                build job: 'narlibs-log4cplus/narlibs-log4cplus/master', wait: false   
             }
         }
     }
